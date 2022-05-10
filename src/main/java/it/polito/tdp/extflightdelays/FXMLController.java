@@ -5,9 +5,11 @@
 package it.polito.tdp.extflightdelays;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.extflightdelays.model.Model;
+import it.polito.tdp.extflightdelays.model.Rotta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,8 +37,18 @@ public class FXMLController {
 
     @FXML
     void doAnalizzaAeroporti(ActionEvent event) {
-    	//TODO
-    }
+    	
+    	int distanzaMin = Integer.parseInt(distanzaMinima.getText());
+    	
+    	this.model.creaGrafo(distanzaMin);
+    	
+    	txtResult.appendText("Grafo creato con "+this.model.nVertici() + " vertici e " + this.model.nArchi()+" archi" + "\n");   
+    	
+    	for(Rotta r: this.model.getRotte()) {
+    		txtResult.appendText(r.toString());
+    	}
+    	}
+
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
